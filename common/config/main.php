@@ -5,10 +5,6 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-        ],
         /*
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',

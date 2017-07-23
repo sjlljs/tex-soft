@@ -12,7 +12,13 @@ class m170722_182637_create_shop_table extends Migration
      */
     public function up()
     {
-        $this->createTable('shop', [
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
+        $this->createTable('{{%shop}}', [
             'id' => $this->primaryKey(),
             'firm_id' => $this->integer()->unsigned()->comment('какой фирме принадлежит'),
             'name' => $this->string(100),
@@ -35,7 +41,7 @@ class m170722_182637_create_shop_table extends Migration
             'defect' => $this->boolean()->notNull()->defaultValue(0)->comment('дефектовка'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->comment('время создания'),
             'deleted' => $this->boolean()->notNull()->defaultValue(0),
-        ]);
+        ], $tableOptions);
     }
 
     /**

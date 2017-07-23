@@ -1,0 +1,29 @@
+[33mcommit 1043d6e244f8697b7c8a55830b66a9cdd9f263d6[m
+Author: sjlljs <sjlljs@list.ru>
+Date:   Sun Jul 23 13:17:27 2017 +0300
+
+    правка конфига
+
+[33mcommit 23f9e2894f7866c7748c4d6c692e5a631bebc765[m
+Author: sjlljs <sjlljs@list.ru>
+Date:   Sun Jul 23 12:51:49 2017 +0300
+
+    таблицы точек и фирм
+
+[33mcommit 268f717249957333504c08292b996276736dc80c[m
+Author: sjlljs <sjlljs@list.ru>
+Date:   Sun Jul 23 12:48:01 2017 +0300
+
+    подключен giiant
+
+[33mcommit ff1c7759e9e4d5b1b25f44dbbe7daae932011cd9[m
+Author: sjlljs <sjlljs@list.ru>
+Date:   Sat Jul 22 20:10:26 2017 +0300
+
+    поправлен конфиг, введен дефолтный админ
+
+[33mcommit 94bb6c900d4d523128cb4900232a7d017dd569c8[m
+Author: sjlljs <sjlljs@list.ru>
+Date:   Sat Jul 22 01:38:07 2017 +0300
+
+    init

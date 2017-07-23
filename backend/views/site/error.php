@@ -17,6 +17,13 @@ $this->title = $name;
         <?= nl2br(Html::encode($message)) ?>
     </div>
 
+    <div class="alert alert-danger">
+        Message: <?= $exception->getMessage() ?>
+        Exception code: <?= $exception->getCode() ?>
+        File: <?= $exception->getFile() ?>
+        Line: <?= $exception->getLine() ?>
+    </div>
+
     <p>
         The above error occurred while the Web server was processing your request.
     </p>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ad4269fa294679265ceedeacf38a9c7",
+    "hash": "4d18e6336daa0e5cdc60d909edf05832",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2314,16 +2314,16 @@
         },
         {
             "name": "schmunk42/yii2-giiant",
-            "version": "dev-master",
+            "version": "0.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmunk42/yii2-giiant.git",
-                "reference": "1e4c2aa56cf2672be1c9d24da9b9c9861793fedb"
+                "reference": "2d20dc96b3ed88a3620613399dec5059c72b0b03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmunk42/yii2-giiant/zipball/1e4c2aa56cf2672be1c9d24da9b9c9861793fedb",
-                "reference": "1e4c2aa56cf2672be1c9d24da9b9c9861793fedb",
+                "url": "https://api.github.com/repos/schmunk42/yii2-giiant/zipball/2d20dc96b3ed88a3620613399dec5059c72b0b03",
+                "reference": "2d20dc96b3ed88a3620613399dec5059c72b0b03",
                 "shasum": ""
             },
             "require": {
@@ -2366,7 +2366,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-06-08 07:42:27"
+            "time": "2017-04-10 22:05:32"
         },
         {
             "name": "sebastian/comparator",
@@ -3932,7 +3932,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "schmunk42/yii2-giiant": 20
+        "schmunk42/yii2-giiant": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,5 +1,7 @@
 <?php
 return [
+    'name' => 'TEX Soft',
+    'language' => 'ru-RU',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [

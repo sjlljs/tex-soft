@@ -16,7 +16,7 @@ class m170723_090240_create_firm_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(150)->comment('наименование'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->comment('время создания'),
-            'deleted' => $this->boolean()->comment('удален/не удален'),
+            'deleted' => $this->boolean()->notNull()->defaultValue(0)->comment('удален/не удален'),
         ]);
     }
 

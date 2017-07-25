@@ -18,7 +18,7 @@ if (isset($actionColumnTemplates)) {
     $actionColumnTemplateString = $actionColumnTemplate;
 } else {
     Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']);
-    $actionColumnTemplateString = "{view} {update} {delete}";
+    $actionColumnTemplateString = "{view} {update}";
 }
 $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemplateString . '</div>';
 ?>
@@ -84,7 +84,15 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
             'headerRowOptions' => ['class' => 'x'],
             'columns' => [
                 'name',
-                'deleted',
+                [
+                    'attribute' => 'deleted',
+                    'format' => 'raw',
+                    'value'=>function ($model) {
+                        /** @var common\models\Firm $model  */
+                        $color=$model->color;
+                        return "<span class='full-circle-small' style='background-color: $color'></span>";
+                    }
+                ],
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'template' => $actionColumnTemplateString,

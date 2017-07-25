@@ -22,6 +22,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $firm_id
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * @property \common\models\Firm $firm
  * @property string $aliasModel
  */
 abstract class User extends \yii\db\ActiveRecord
@@ -62,7 +64,8 @@ abstract class User extends \yii\db\ActiveRecord
             [['first_name', 'last_name'], 'string', 'max' => 100],
             [['username'], 'unique'],
             [['email'], 'unique'],
-            [['password_reset_token'], 'unique']
+            [['password_reset_token'], 'unique'],
+            [['firm_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Firm::className(), 'targetAttribute' => ['firm_id' => 'id']]
         ];
     }
 
@@ -101,6 +104,14 @@ abstract class User extends \yii\db\ActiveRecord
 
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFirm()
+    {
+        return $this->hasOne(\common\models\Firm::className(), ['id' => 'firm_id']);
+    }
+
+    /**
      * @inheritdoc
      * @return \common\models\query\UserQuery the active query used by this AR class.
      */
@@ -108,6 +119,4 @@ abstract class User extends \yii\db\ActiveRecord
     {
         return new \common\models\query\UserQuery(get_called_class());
     }
-
-
 }

@@ -20,7 +20,7 @@ class m170722_182637_create_shop_table extends Migration
 
         $this->createTable('{{%shop}}', [
             'id' => $this->primaryKey(),
-            'firm_id' => $this->integer()->unsigned()->comment('какой фирме принадлежит'),
+            'firm_id' => $this->integer()->comment('какой фирме принадлежит'),
             'name' => $this->string(100),
             'phone' => $this->text(),
             'address' => $this->text()->comment('Адрес'),

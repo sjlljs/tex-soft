@@ -7,15 +7,15 @@ use yii\helpers\Html;
  * @var common\models\User $model
  */
 
-$this->title = "Пользователь" . " " . $model->id . ', ' . 'Edit';
-$this->params['breadcrumbs'][] = ['label' => "Пользователь", 'url' => ['index']];
+$this->title = Yii::t('app', 'User') . " " . $model->id . ', ' . 'Edit';
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="giiant-crud user-update">
 
     <h1>
-        <?= "Пользователь" ?>
+        <?= Yii::t('app', 'User') ?>
         <small>
             <?= $model->id ?>
         </small>

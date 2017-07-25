@@ -8,13 +8,13 @@ use yii\helpers\Html;
  */
 
 $this->title = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud user-create">
 
     <h1>
-        <?= 'Пользователь' ?>
+        <?= Yii::t('app', 'User') ?>
         <small>
             <?= $model->id ?>
         </small>

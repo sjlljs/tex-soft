@@ -40,7 +40,7 @@ AppAsset::register($this);
         ['label' => 'Настройки', 'items' => [
             ['label' => 'Фирмы', 'url' => ['/firm/index']],
             ['label' => 'Пользователи', 'url' => ['/user/index']],
-            ['label' => 'Точки']
+            ['label' => 'Точки', 'url' => ['/shop/index']]
         ],
         ]];
     if (Yii::$app->user->isGuest) {

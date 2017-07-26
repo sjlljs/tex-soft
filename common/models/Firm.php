@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "firm".
  *
  * @property string $color
+ * @property integer $active
  */
 class Firm extends BaseFirm
 {
@@ -19,6 +20,11 @@ class Firm extends BaseFirm
     static $stateColor = [
         self::STATUS_ACTIVE => 'green',
         self::STATUS_INACTIVE => 'red',
+    ];
+
+    static $stateNames=[
+        self::STATUS_ACTIVE=>'Активен',
+        self::STATUS_INACTIVE=>'Неактивен',
     ];
 
 
@@ -47,5 +53,8 @@ class Firm extends BaseFirm
         return self::$stateColor[$this->deleted];
     }
 
-
+    public function getActive()
+    {
+        return !($this->deleted);
+    }
 }

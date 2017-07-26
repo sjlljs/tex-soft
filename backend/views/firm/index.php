@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use common\models\Firm;
 
 /**
  * @var yii\web\View $this
@@ -32,7 +33,7 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
     <?php \yii\widgets\Pjax::begin(['id' => 'pjax-main', 'enableReplaceState' => false, 'linkSelector' => '#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success' => 'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?= 'Фирмы'//Yii::t('models', 'Firms')  ?>
+        <?= 'Фирмы'//Yii::t('models', 'Firms')     ?>
         <small>
             List
         </small>
@@ -83,15 +84,22 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
             'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
             'headerRowOptions' => ['class' => 'x'],
             'columns' => [
+                ['class' => \yii\grid\SerialColumn::className()],
                 'name',
                 [
                     'attribute' => 'deleted',
+                    'label' => 'Активность',
                     'format' => 'raw',
-                    'value'=>function ($model) {
-                        /** @var common\models\Firm $model  */
-                        $color=$model->color;
-                        return "<span class='full-circle-small' style='background-color: $color'></span>";
-                    }
+                    'headerOptions' => ['class' => 'col-sm-1 text-center'],
+                    'contentOptions' => ['class' => 'col-sm-1 text-center'],
+                    'value' => function ($model) {
+                        /** @var common\models\Firm $model */
+                        $color = $model->color;
+                        $class = ($model->active) ? 'success' : 'danger';
+                        $label = ($model->active) ? "да" : 'нет';
+                        return "<span class='label label-$class'>$label</span>";
+                    },
+                    'filter' => Firm::$stateNames,
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
@@ -112,7 +120,8 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
                         $params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id . '/' . $action : $action;
                         return Url::toRoute($params);
                     },
-                    'contentOptions' => ['nowrap' => 'nowrap']
+                    'contentOptions' => ['nowrap' => 'nowrap', 'class' => 'col-sm-1'],
+                    'headerOptions' => ['class' => 'col-sm-1'],
                 ],
             ],
         ]); ?>

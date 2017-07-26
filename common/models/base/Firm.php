@@ -61,25 +61,11 @@ abstract class Firm extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'наименование',
+            'name' => 'Наименование',
             'created_at' => 'время создания',
-            'deleted' => 'удален/не удален',
+            'deleted' => 'Активность',
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeHints()
-    {
-        return array_merge(parent::attributeHints(), [
-            'name' => 'наименование',
-            'created_at' => 'время создания',
-            'deleted' => 'удален/не удален',
-        ]);
-    }
-
-
     
     /**
      * @inheritdoc

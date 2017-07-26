@@ -33,7 +33,7 @@ use yii\helpers\StringHelper;
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
             <!-- attribute deleted -->
-            <?= $form->field($model, 'deleted')->checkbox([],false) ?>
+            <?= $form->field($model, 'deleted')->dropDownList(\common\models\Firm::$stateNames) ?>
 
         </p>
         <?php $this->endBlock(); ?>

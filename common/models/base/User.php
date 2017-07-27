@@ -6,6 +6,7 @@ namespace common\models\base;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the base-model class for table "user".
@@ -26,7 +27,7 @@ use yii\behaviors\TimestampBehavior;
  * @property \common\models\Firm $firm
  * @property string $aliasModel
  */
-abstract class User extends \yii\db\ActiveRecord
+abstract class User extends ActiveRecord
 {
 
 
@@ -76,7 +77,7 @@ abstract class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'Логин',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
@@ -84,9 +85,9 @@ abstract class User extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'first_name' => 'имя',
-            'last_name' => 'фамилия',
-            'firm_id' => 'идентификатор фирмы',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'firm_id' => 'Фирма',
         ];
     }
 

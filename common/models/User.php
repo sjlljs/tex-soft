@@ -15,6 +15,7 @@ class User extends BaseUser implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
+    public $password;
 
     public function behaviors()
     {
@@ -33,6 +34,7 @@ class User extends BaseUser implements IdentityInterface
             [
                 ['status', 'default', 'value' => self::STATUS_ACTIVE],
                 ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+                ['password', 'string', 'min' => 6],
             ]
         );
     }
@@ -131,7 +133,7 @@ class User extends BaseUser implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return \Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -168,4 +170,16 @@ class User extends BaseUser implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    public static function stateNames()
+    {
+        return [
+            self::STATUS_ACTIVE => 'Активен',
+            self::STATUS_DELETED => 'Блок.',
+        ];
+    }
+
+    public function isActive()
+    {
+        return ($this->status == self::STATUS_ACTIVE);
+    }
 }

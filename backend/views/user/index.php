@@ -92,7 +92,19 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
                 'first_name',
                 'last_name',
                 'email:email',
-                'status',
+                [
+                    'attribute' => 'status',
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-sm-1 text-center'],
+                    'contentOptions' => ['class' => 'col-sm-1 text-center'],
+                    'value' => function ($model) {
+                        /** @var common\models\User $model */
+                        $class = ($model->isActive()) ? 'success' : 'danger';
+                        $label = ($model->isActive()) ? "да" : 'нет';
+                        return "<span class='label label-$class'>$label</span>";
+                    },
+                    'filter' => \common\models\User::stateNames(),
+                ],
                 [
                     'class' => yii\grid\DataColumn::className(),
                     'attribute' => 'firm_id',
@@ -104,6 +116,7 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
                         }
                     },
                     'format' => 'raw',
+                    'filter' => \yii\helpers\ArrayHelper::map(\common\models\Firm::find()->allActive(), 'id', 'name'),
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',

@@ -2,18 +2,25 @@
 
 namespace common\models\query;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[\common\models\Firm]].
  *
  * @see \common\models\Firm
  */
-class FirmQuery extends \yii\db\ActiveQuery
+class FirmQuery extends ActiveQuery
 {
-    /*public function active()
+    public function active()
     {
-        $this->andWhere('[[status]]=1');
+        $this->andWhere('deleted=0');
         return $this;
-    }*/
+    }
+
+    public function allActive()
+    {
+        return $this->active()->all();
+    }
 
     /**
      * @inheritdoc

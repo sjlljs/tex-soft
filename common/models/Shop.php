@@ -11,8 +11,10 @@ use yii\helpers\ArrayHelper;
  */
 class Shop extends BaseShop
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
 
-public function behaviors()
+    public function behaviors()
     {
         return ArrayHelper::merge(
             parent::behaviors(),
@@ -25,10 +27,23 @@ public function behaviors()
     public function rules()
     {
         return ArrayHelper::merge(
-             parent::rules(),
-             [
-                  # custom validation rules
-             ]
+            parent::rules(),
+            [
+                # custom validation rules
+            ]
         );
+    }
+
+    public static function stateNames()
+    {
+        return [
+            self::STATUS_ACTIVE => 'Активен',
+            self::STATUS_INACTIVE => 'Блок.',
+        ];
+    }
+
+    public function isActive()
+    {
+        return ($this->active == self::STATUS_ACTIVE);
     }
 }

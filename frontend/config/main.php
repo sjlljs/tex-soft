@@ -45,7 +45,7 @@ return [
             ],
         ],
         'shop' => [
-            'class' => 'common\components\Shop'
+            'class' => 'frontend\components\Shop'
         ],
     ],
     'params' => $params,

@@ -46,4 +46,9 @@ class Shop extends BaseShop
     {
         return ($this->active == self::STATUS_ACTIVE);
     }
+
+    public static function findAnyByFirm($firm_id)
+    {
+        return self::findOne(['firm_id' => $firm_id])->id;
+    }
 }

@@ -182,4 +182,9 @@ class User extends BaseUser implements IdentityInterface
     {
         return ($this->status == self::STATUS_ACTIVE);
     }
+
+    public function findAnyFirmShop()
+    {
+        return Shop::findAnyByFirm($this->firm_id);
+    }
 }

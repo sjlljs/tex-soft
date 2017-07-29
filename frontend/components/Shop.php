@@ -5,7 +5,7 @@ namespace frontend\components;
 use yii\base\Component;
 use Yii;
 
-class CurrentShop extends Component
+class Shop extends Component
 {
     private $attribute='shop_id';
 

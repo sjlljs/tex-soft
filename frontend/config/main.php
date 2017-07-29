@@ -44,6 +44,9 @@ return [
             'rules' => [
             ],
         ],
+        'shop' => [
+            'class' => 'common\components\Shop'
+        ],
     ],
     'params' => $params,
 ];

@@ -42,7 +42,7 @@ AppAsset::register($this);
     ];
     if (!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Настройки', 'items' => [
-            ['label' => 'Точки']],
+            ['label' => 'Точки','url'=>['/shop/index']]],
         ];
 
     }

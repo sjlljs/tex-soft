@@ -29,8 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-       // 'brandLabel' => 'My Company',
-       // 'brandUrl' => Yii::$app->homeUrl,
+        // 'brandLabel' => 'My Company',
+        // 'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -39,10 +39,13 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
-        ['label' => 'Настройки', 'items' => [
-            ['label' => 'Точки']],
-        ]
     ];
+    if (!Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Настройки', 'items' => [
+            ['label' => 'Точки']],
+        ];
+
+    }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -62,13 +65,16 @@ AppAsset::register($this);
     ]);
 
     if (!Yii::$app->user->isGuest) {
-        $shops=\common\models\Shop::findAllAvailable(Yii::$app->user->identity);
-        $shopItems=[];
-        $shopItems=array_map(function ($shop) {
-            return ['label'=>$shop->name];
-        },$shops);
-        $menuItems=[['label'=>Yii::$app->shop->name,
-            'items'=>$shopItems,
+        $shops = \common\models\Shop::findAllAvailable(Yii::$app->user->identity);
+        $shopItems = [];
+        if (empty($shops)) {
+            $shopItems[] = ['label' => '( пусто )'];
+        } else
+            $shopItems = array_map(function ($shop) {
+                return ['label' => $shop->name];
+            }, $shops);
+        $menuItems = [['label' => Yii::$app->shop->name,
+            'items' => $shopItems,
         ]];
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-left'],

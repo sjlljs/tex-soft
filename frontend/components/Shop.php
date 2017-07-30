@@ -34,7 +34,7 @@ class Shop extends Component
 
     public function getName()
     {
-        return (is_null($this->shop)) ? "" : $this->shop->name;
+        return (is_null($this->shop)) ? "< Точка не выбрана >" : $this->shop->name;
     }
 
     public function set($shop_id = null)

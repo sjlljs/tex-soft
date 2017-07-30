@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use \common\models\base\Shop as BaseShop;
 use yii\helpers\ArrayHelper;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "shop".
@@ -49,6 +50,16 @@ class Shop extends BaseShop
 
     public static function findAnyByFirm($firm_id)
     {
-        return self::findOne(['firm_id' => $firm_id])->id;
+        return self::findOne(['firm_id' => $firm_id]);
+    }
+
+    /**
+     * @param $user
+     * @return static[]
+     */
+    public static function findAllAvailable($user)
+    {
+        $firm_id = $user->firm_id;
+        return self::findAll(['firm_id' => $firm_id]);
     }
 }

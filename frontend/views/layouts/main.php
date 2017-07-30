@@ -29,8 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
+       // 'brandLabel' => 'My Company',
+       // 'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -60,6 +60,21 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
+
+    if (!Yii::$app->user->isGuest) {
+        $shops=\common\models\Shop::findAllAvailable(Yii::$app->user->identity);
+        $shopItems=[];
+        $shopItems=array_map(function ($shop) {
+            return ['label'=>$shop->name];
+        },$shops);
+        $menuItems=[['label'=>Yii::$app->shop->name,
+            'items'=>$shopItems,
+        ]];
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-left'],
+            'items' => $menuItems,
+        ]);
+    }
     NavBar::end();
     ?>
 

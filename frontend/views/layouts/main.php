@@ -42,7 +42,7 @@ AppAsset::register($this);
     ];
     if (!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Настройки', 'items' => [
-            ['label' => 'Точки','url'=>['/shop/index']]],
+            ['label' => 'Точки', 'url' => ['/shop/index']]],
         ];
 
     }
@@ -71,7 +71,7 @@ AppAsset::register($this);
             $shopItems[] = ['label' => '( пусто )'];
         } else
             $shopItems = array_map(function ($shop) {
-                return ['label' => $shop->name];
+                return ['label' => $shop->name, 'url' => ['/shop/change', 'id' => $shop->id]];
             }, $shops);
         $menuItems = [['label' => Yii::$app->shop->name,
             'items' => $shopItems,

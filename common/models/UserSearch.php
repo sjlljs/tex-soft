@@ -50,8 +50,8 @@ class UserSearch extends User
         $this->load($params);
 
         if (!$this->validate()) {
-// uncomment the following line if you do not want to any records when validation fails
-// $query->where('0=1');
+            // uncomment the following line if you do not want to any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 

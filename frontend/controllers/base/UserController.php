@@ -4,8 +4,8 @@
 
 namespace frontend\controllers\base;
 
-use common\models\Shop;
-use common\models\ShopSearch;
+use common\models\User;
+use common\models\UserSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -13,9 +13,9 @@ use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
- * ShopController implements the CRUD actions for Shop model.
+ * UserController implements the CRUD actions for User model.
  */
-class ShopController extends Controller
+class UserController extends Controller
 {
 
 
@@ -27,12 +27,12 @@ class ShopController extends Controller
 
 
     /**
-     * Lists all Shop models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ShopSearch(['firm_id' => \Yii::$app->user->identity->firm_id]);
+        $searchModel = new UserSearch(['firm_id' => \Yii::$app->user->identity->firm_id]);
         $dataProvider = $searchModel->search($_GET);
 
         Tabs::clearLocalStorage();
@@ -47,7 +47,7 @@ class ShopController extends Controller
     }
 
     /**
-     * Displays a single Shop model.
+     * Displays a single User model.
      * @param integer $id
      *
      * @return mixed
@@ -64,19 +64,22 @@ class ShopController extends Controller
     }
 
     /**
-     * Creates a new Shop model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Shop;
-
-        $model->firm_id = \Yii::$app->user->identity->firm_id;
+        $model = new User(['firm_id'=>\Yii::$app->user->identity->firm_id]);
 
         try {
-            if ($model->load($_POST) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($_POST)) {
+                if ($model->password != $model->password_hash) {
+                    $model->setPassword($model->password);
+                    $model->generateAuthKey();
+                }
+                if ($model->save())
+                    return $this->redirect(['view', 'id' => $model->id]);
             } elseif (!\Yii::$app->request->isPost) {
                 $model->load($_GET);
             }
@@ -88,7 +91,7 @@ class ShopController extends Controller
     }
 
     /**
-     * Updates an existing Shop model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -107,7 +110,7 @@ class ShopController extends Controller
     }
 
     /**
-     * Deletes an existing Shop model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -138,15 +141,15 @@ class ShopController extends Controller
     }
 
     /**
-     * Finds the Shop model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Shop the loaded model
+     * @return User the loaded model
      * @throws HttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Shop::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new HttpException(404, 'The requested page does not exist.');

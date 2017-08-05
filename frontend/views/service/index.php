@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use common\widgets\ModalForm\ModalForm;
+use yii\bootstrap\Modal;
 
 /**
  * @var yii\web\View $this
@@ -44,6 +45,20 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
             <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
     </div>
+    <?= Html::button('test',['data-toggle'=>'modal','data-target'=>'#modal-category','href'=>Url::toRoute('service-category/index')]) ?>
+    <?php \yii\widgets\Pjax::begin() ?>
+    <?=
+    Modal::widget([
+        'id'=>'modal-category',
+        'clientOptions'=>false,
+        'toggleButton' => ['label' => 'click me','data-target'=>'#modal-category','href'=>Url::toRoute('service-category/create')],
+        'clientEvents'=>[
+            'hidden.bs.modal'=>new \yii\web\JsExpression("function (){ $(this).removeData('bs.modal'); $(this).find('.modal-content').html(''); }"),
+        ]
+    ]);
+    ?>
+
+    <?php \yii\widgets\Pjax::end() ?>
 
     <hr/>
 

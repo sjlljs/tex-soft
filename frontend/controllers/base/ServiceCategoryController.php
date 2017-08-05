@@ -84,7 +84,7 @@ class ServiceCategoryController extends Controller
         }
 
         if (\Yii::$app->request->isAjax)
-            $out = $this->renderAjax('create', ['model' => $model]);
+            $out = $this->renderPartial('_form', ['model' => $model]);
         else
             $out = $this->redirect(\Yii::$app->request->referrer);
         return $out;

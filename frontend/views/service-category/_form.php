@@ -25,11 +25,7 @@ use yii\helpers\StringHelper;
     ?>
 
     <div class="">
-        <?php $this->beginBlock('main'); ?>
-
         <p>
-
-
             <!-- attribute pid -->
             <?= $form->field($model, 'pid')->textInput() ?>
 
@@ -71,35 +67,30 @@ use yii\helpers\StringHelper;
             <!-- attribute name -->
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
         </p>
-        <?php $this->endBlock(); ?>
-
-        <?=
-        Tabs::widget(
-            [
-                'encodeLabels' => false,
-                'items' => [
-                    [
-                        'label' => Yii::t('app', 'ServiceCategory'),
-                        'content' => $this->blocks['main'],
-                        'active' => true,
-                    ],
-                ]
-            ]
-        );
-        ?>
         <hr/>
 
         <?php echo $form->errorSummary($model); ?>
 
-        <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> ' .
-            ($model->isNewRecord ? 'Create' : 'Save'),
-            [
-                'id' => 'save-' . $model->formName(),
-                'class' => 'btn btn-success'
-            ]
-        );
-        ?>
+        <div class="modal-footer">
+            <div class="pull-left">
+                <?= Html::button(
+                    'Отмена',
+                    ['class' => 'btn btn-default','data-dismiss'=>'modal']) ?>
+            </div>
+
+            <div class="pull-right">
+                <?= Html::submitButton(
+                    '<span class="glyphicon glyphicon-check"></span> ' . ($model->isNewRecord ? 'Create' : 'Save'),
+                    [
+                        'id' => 'save-' . $model->formName(),
+                        'class' => 'btn btn-success'
+                    ]
+                );
+                ?>
+            </div>
+        </div>
+
+
 
         <?php ActiveForm::end(); ?>
 

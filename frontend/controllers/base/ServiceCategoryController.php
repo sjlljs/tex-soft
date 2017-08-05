@@ -82,7 +82,12 @@ class ServiceCategoryController extends Controller
             $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
             $model->addError('_exception', $msg);
         }
-        return $this->render('create', ['model' => $model]);
+
+        if (\Yii::$app->request->isAjax)
+            $out = $this->renderAjax('create', ['model' => $model]);
+        else
+            $out = $this->redirect(\Yii::$app->request->referrer);
+        return $out;
     }
 
     /**

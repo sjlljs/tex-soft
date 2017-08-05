@@ -35,7 +35,8 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
     <h1>
         <?= Yii::t('app', 'Services') ?>
         <small>
-            List
+            <?= Html::button("<span class='glyphicon glyphicon-plus'></span>",
+                ['class'=>'btn btn-link js-modal-show','title'=>'Новая категория услуг','data-url'=>Url::toRoute('service-category/create')]) ?>
         </small>
     </h1>
     <div class="clearfix crud-navigation">

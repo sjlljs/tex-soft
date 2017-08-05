@@ -42,9 +42,6 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
         <div class="pull-left">
             <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
-        <div class="pull-right">
-            <?= Html::button('modal',['class'=>'js-modal-show btn','data-url'=>Url::toRoute('shop/index')]) ?>
-        </div>
     </div>
 
     <hr/>

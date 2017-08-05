@@ -7,6 +7,7 @@ use yii\db\Migration;
  */
 class m170723_090240_create_firm_table extends Migration
 {
+    private $table_name='{{%firm}}';
     /**
      * @inheritdoc
      */
@@ -18,7 +19,7 @@ class m170723_090240_create_firm_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%firm}}', [
+        $this->createTable($this->table_name, [
             'id' => $this->primaryKey(),
             'name' => $this->string(150)->comment('наименование'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->comment('время создания'),
@@ -31,6 +32,6 @@ class m170723_090240_create_firm_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('firm');
+        $this->dropTable($this->table_name);
     }
 }

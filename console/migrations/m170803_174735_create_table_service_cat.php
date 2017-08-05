@@ -7,6 +7,8 @@ class m170803_174735_create_table_service_cat extends Migration
     private $table_name = '{{%service_category}}';
     private $shop_table = "{{%shop}}";
     private $firm_table = "{{%firm}}";
+    private $fk_firm="{{%fk_servicecat_firm}}";
+    private $fk_shop="{{%fk_servicecat_shop}}";
 
     public function safeUp()
     {
@@ -29,14 +31,14 @@ class m170803_174735_create_table_service_cat extends Migration
             'active' => $this->boolean()->defaultValue(1)->comment('активна/неактивна'),
         ], $tableOptions);
 
-        $this->addForeignKey("{{%fk_service_firm}}", $this->table_name, 'firm_id', $this->firm_table, "id", null, 'CASCADE');
-        $this->addForeignKey("{{%fk_service_shop}}", $this->table_name, 'shop_id', $this->shop_table, "id", null, 'CASCADE');
+        $this->addForeignKey($this->fk_firm, $this->table_name, 'firm_id', $this->firm_table, "id", null, 'CASCADE');
+        $this->addForeignKey($this->fk_shop, $this->table_name, 'shop_id', $this->shop_table, "id", null, 'CASCADE');
     }
 
     public function safeDown()
     {
-        $this->dropForeignKey("{{%fk_service_shop}}", $this->table_name);
-        $this->dropForeignKey("{{%fk_service_firm}}", $this->table_name);
+        $this->dropForeignKey($this->fk_shop, $this->table_name);
+        $this->dropForeignKey($this->fk_firm, $this->table_name);
         $this->dropTable($this->table_name);
     }
 

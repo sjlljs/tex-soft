@@ -7,6 +7,8 @@ use yii\db\Migration;
  */
 class m170722_182637_create_shop_table extends Migration
 {
+    private $table_name = '{{%shop}}';
+
     /**
      * @inheritdoc
      */
@@ -18,7 +20,7 @@ class m170722_182637_create_shop_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%shop}}', [
+        $this->createTable($this->table_name, [
             'id' => $this->primaryKey(),
             'firm_id' => $this->integer()->comment('какой фирме принадлежит'),
             'name' => $this->string(100),
@@ -49,6 +51,6 @@ class m170722_182637_create_shop_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('shop');
+        $this->dropTable($this->table_name);
     }
 }

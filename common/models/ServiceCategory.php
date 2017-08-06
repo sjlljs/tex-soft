@@ -11,8 +11,13 @@ use yii\helpers\ArrayHelper;
  */
 class ServiceCategory extends BaseServiceCategory
 {
+    const NALOG_USN = 1;
+    const NALOG_PATENT = 2;
 
-public function behaviors()
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+
+    public function behaviors()
     {
         return ArrayHelper::merge(
             parent::behaviors(),
@@ -25,10 +30,23 @@ public function behaviors()
     public function rules()
     {
         return ArrayHelper::merge(
-             parent::rules(),
-             [
-                  # custom validation rules
-             ]
+            parent::rules(),
+            [
+                # custom validation rules
+            ]
         );
+    }
+
+    public static function NalogNames()
+    {
+        return [
+            self::NALOG_USN => 'доходы УСН',
+            self::NALOG_PATENT => 'доходы патент'
+        ];
+    }
+
+    public function setActive()
+    {
+        $this->active = self::STATUS_ACTIVE;
     }
 }

@@ -17,7 +17,7 @@ use Yii;
  * @property integer $num
  * @property integer $nalog_type
  * @property string $picture
- * @property integer $del
+ * @property integer $deleted
  * @property integer $active
  *
  * @property \common\models\Shop $shop
@@ -44,7 +44,7 @@ abstract class ServiceCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'firm_id', 'shop_id', 'num', 'nalog_type', 'del', 'active'], 'integer'],
+            [['pid', 'firm_id', 'shop_id', 'num', 'nalog_type', 'deleted', 'active'], 'integer'],
             [['picture'], 'string'],
             [['name'], 'string', 'max' => 50],
             [['shop_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Shop::className(), 'targetAttribute' => ['shop_id' => 'id']],
@@ -62,12 +62,12 @@ abstract class ServiceCategory extends \yii\db\ActiveRecord
             'pid' => 'подкатегории',
             'firm_id' => 'id фирмы',
             'shop_id' => 'id точки',
-            'name' => 'название',
+            'name' => 'Название',
             'num' => 'порядок/позиция в списке',
-            'nalog_type' => 'тип надогообложения',
-            'picture' => 'картинка',
-            'del' => 'удалена',
-            'active' => 'активна/неактивна',
+            'nalog_type' => 'Тип надогообложения',
+            'picture' => 'Картинка',
+            'deleted' => 'удалена',
+            'active' => 'Активна',
         ];
     }
 

@@ -71,12 +71,13 @@ class ServiceCategoryController extends Controller
     public function actionCreate()
     {
         $model = new ServiceCategory;
+        $model->setActive();
 
         try {
-            if ($model->load($_POST) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } elseif (!\Yii::$app->request->isPost) {
-                $model->load($_GET);
+            if ($model->load($_POST)) {
+                $model->firm_id = \Yii::$app->user->identity->firm_id;
+                if ($model->save())
+                    return $this->redirect(\Yii::$app->request->referrer);
             }
         } catch (\Exception $e) {
             $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
@@ -84,7 +85,7 @@ class ServiceCategoryController extends Controller
         }
 
         if (\Yii::$app->request->isAjax)
-            $out = $this->renderPartial('_form', ['model' => $model]);
+            $out = $this->renderPartial('_form_modal', ['model' => $model]);
         else
             $out = $this->redirect(\Yii::$app->request->referrer);
         return $out;

@@ -3,8 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
-use common\widgets\ModalForm\ModalForm;
-use yii\bootstrap\Modal;
+use common\widgets\ModalAjaxForm\ModalAjaxForm;
 
 /**
  * @var yii\web\View $this
@@ -25,7 +24,12 @@ if (isset($actionColumnTemplates)) {
 $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemplateString . '</div>';
 ?>
 <div class="giiant-crud service-index">
-    <?= ModalForm::widget() ?>
+    <?= ModalAjaxForm::widget([
+        'id' => 'modal-category',
+        'clientOptions' => false,
+    ]);
+    ?>
+
     <?php
     //             echo $this->render('_search', ['model' =>$searchModel]);
     ?>
@@ -36,8 +40,13 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
     <h1>
         <?= Yii::t('app', 'Services') ?>
         <small>
-            <?= Html::button("<span class='glyphicon glyphicon-plus'></span>",
-                ['class'=>'btn btn-link js-modal-show','title'=>'Новая категория услуг','data-url'=>Url::toRoute('service-category/create')]) ?>
+            <?= Html::button("<span class='glyphicon glyphicon-plus'></span>", [
+                'class' => 'btn btn-link',
+                'title' => 'Новая категория услуг',
+                'data-toggle' => 'modal',
+                'data-target' => '#modal-category',
+                'href' => Url::toRoute('service-category/create')
+            ]) ?>
         </small>
     </h1>
     <div class="clearfix crud-navigation">
@@ -45,20 +54,6 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
             <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
     </div>
-    <?= Html::button('test',['data-toggle'=>'modal','data-target'=>'#modal-category','href'=>Url::toRoute('service-category/index')]) ?>
-    <?php \yii\widgets\Pjax::begin() ?>
-    <?=
-    Modal::widget([
-        'id'=>'modal-category',
-        'clientOptions'=>false,
-        'toggleButton' => ['label' => 'click me','data-target'=>'#modal-category','href'=>Url::toRoute('service-category/create')],
-        'clientEvents'=>[
-            'hidden.bs.modal'=>new \yii\web\JsExpression("function (){ $(this).removeData('bs.modal'); $(this).find('.modal-content').html(''); }"),
-        ]
-    ]);
-    ?>
-
-    <?php \yii\widgets\Pjax::end() ?>
 
     <hr/>
 

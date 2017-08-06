@@ -11,8 +11,8 @@ use yii\helpers\ArrayHelper;
  */
 class ServiceCategory extends BaseServiceCategory
 {
-    const NALOG_USN = 1;
-    const NALOG_PATENT = 2;
+    const NALOG_USN = 0;
+    const NALOG_PATENT = 1;
 
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;

@@ -32,7 +32,7 @@ class m170804_192333_create_service_table extends Migration
             'discount' => $this->boolean()->comment("давать ли скидку"),
             'payment' => $this->integer()->unsigned()->comment('зарплата мастеру'),
             'comment' => $this->text()->comment("комментарий приемщику"),
-            'deleted' => $this->boolean()->comment('удален'),
+            'deleted' => $this->boolean()->notNull()->defaultValue(0)->comment('удален'),
         ]);
 
         $this->addForeignKey($this->fk_category, $this->table_name, 'category_id', $this->category_table, "id", null, 'CASCADE');

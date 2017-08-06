@@ -27,8 +27,8 @@ class m170803_174735_create_table_service_cat extends Migration
             'num' => $this->smallInteger()->unsigned()->defaultValue(65000)->comment('порядок/позиция в списке'),
             'nalog_type' => $this->smallInteger(2)->unsigned()->comment('тип надогообложения'),
             'picture' => $this->text()->comment('картинка'),
-            'del' => $this->boolean()->comment('удалена'),
-            'active' => $this->boolean()->defaultValue(1)->comment('активна/неактивна'),
+            'deleted' => $this->boolean()->notNull()->defaultValue(0)->comment('удалена'),
+            'active' => $this->boolean()->notNull()->defaultValue(1)->comment('активна/неактивна'),
         ], $tableOptions);
 
         $this->addForeignKey($this->fk_firm, $this->table_name, 'firm_id', $this->firm_table, "id", null, 'CASCADE');

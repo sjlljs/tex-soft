@@ -49,7 +49,29 @@
 
             <?php if (!empty($model->services)): ?>
                 <?php foreach ($model->services as $service): ?>
-                    <?= $service->name ?> - <?= $service->base_cost ?> р.
+                    <div>
+                        <?= $service->name ?> - <?= $service->base_cost ?> р.
+                        <?= \yii\bootstrap\ButtonDropdown::widget([
+                            'label' => "",
+                            'dropdown' => [
+                                'items' => [
+                                    ['label' => 'Печать этикетки'],
+                                    [
+                                        'label' => 'Редактировать услугу',
+                                        'url' => ['service/update', 'id' => $service->id],
+                                    ],
+                                    ['label' => 'Удалить'],
+                                ],
+                            ],
+                            'containerOptions' => [
+                                'class' => 'pull-right',
+                            ],
+                            'options' => [
+                                'class' => 'btn-link',
+                            ],
+                            'encodeLabel' => false,
+                        ]) ?>
+                    </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

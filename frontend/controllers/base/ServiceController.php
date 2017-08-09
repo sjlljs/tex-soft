@@ -5,7 +5,9 @@
 namespace frontend\controllers\base;
 
 use common\models\Service;
+use common\models\ServiceCategory;
 use common\models\ServiceSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -35,6 +37,10 @@ class ServiceController extends Controller
         $searchModel = new ServiceSearch;
         $dataProvider = $searchModel->search($_GET);
 
+        $categoryProvider = new ActiveDataProvider([
+            'query' => ServiceCategory::find()->where(['pid' => 0])->with('subcategories', 'services'),
+        ]);
+
         Tabs::clearLocalStorage();
 
         Url::remember();
@@ -43,6 +49,7 @@ class ServiceController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'categoryProvider' => $categoryProvider,
         ]);
     }
 
@@ -66,15 +73,17 @@ class ServiceController extends Controller
     /**
      * Creates a new Service model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $category
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($category = 0)
     {
         $model = new Service;
+        $model->category_id = $category;
 
         try {
             if ($model->load($_POST) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index', 'id' => $model->id]);
             } elseif (!\Yii::$app->request->isPost) {
                 $model->load($_GET);
             }

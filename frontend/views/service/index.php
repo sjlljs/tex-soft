@@ -57,6 +57,17 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
 
     <hr/>
 
+    <div class="clearfix">
+        <?php $cats = $categoryProvider->getModels(); ?>
+        <?php $panel_id = uniqid() ?>
+        <div id="level<?= $panel_id ?>" class="panel-group col-sm-12 col-md-9">
+            <?php foreach ($cats as $cat): ?>
+                <?= $this->render('_panel_category', ['model' => $cat, 'parent_id' => $panel_id]) ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+
     <div class="table-responsive">
         <?= GridView::widget([
             'dataProvider' => $dataProvider,

@@ -66,12 +66,15 @@ class ServiceCategoryController extends Controller
     /**
      * Creates a new ServiceCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
+     * @param integer $parent
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($parent = 0)
     {
         $model = new ServiceCategory;
         $model->setActive();
+        $model->pid = $parent;
 
         try {
             if ($model->load($_POST)) {
@@ -94,6 +97,7 @@ class ServiceCategoryController extends Controller
     /**
      * Updates an existing ServiceCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -104,9 +108,11 @@ class ServiceCategoryController extends Controller
         if ($model->load($_POST) && $model->save()) {
             return $this->redirect(Url::previous());
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if (\Yii::$app->request->isAjax)
+                $out = $this->renderPartial('_form_modal', ['model' => $model]);
+            else
+                $out = $this->redirect(\Yii::$app->request->referrer);
+            return $out;
         }
     }
 

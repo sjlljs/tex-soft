@@ -23,6 +23,11 @@ use yii\helpers\StringHelper;
 ?>
 
 <div class="modal-body">
+    <div class="text-center">
+        <?php if ($model->isNewRecord): ?>
+            <b><?= (empty($model->pid))?'Новая категория':'Новая подкатегория' ?></b>
+        <?php endif; ?>
+    </div>
     <p>
         <!-- attribute name -->
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -37,7 +42,6 @@ use yii\helpers\StringHelper;
         <?= $form->field($model, 'picture')->textarea(['rows' => 6]) ?>
 
     </p>
-    <hr/>
 
     <?php echo $form->errorSummary($model); ?>
 

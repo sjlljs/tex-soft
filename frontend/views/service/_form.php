@@ -53,19 +53,19 @@ use yii\helpers\StringHelper;
             <?= $form->field($model, 'num')->textInput() ?>
 
             <!-- attribute fixed -->
-            <?= $form->field($model, 'fixed')->textInput() ?>
+            <?= $form->field($model, 'fixed')->checkbox() ?>
 
             <!-- attribute margin -->
             <?= $form->field($model, 'margin')->textInput() ?>
 
             <!-- attribute discount -->
-            <?= $form->field($model, 'discount')->textInput() ?>
+            <?= $form->field($model, 'discount')->checkbox() ?>
 
             <!-- attribute payment -->
             <?= $form->field($model, 'payment')->textInput(['maxlength' => true]) ?>
 
             <!-- attribute deleted -->
-            <?= $form->field($model, 'deleted')->textInput() ?>
+            <?= $form->field($model, 'deleted')->checkbox() ?>
 
             <!-- attribute comment -->
             <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>

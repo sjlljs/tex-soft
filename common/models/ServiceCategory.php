@@ -8,6 +8,9 @@ use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "service_category".
+ *
+ * @property \common\models\ServiceCategory[] $subcategories
+ * @property \common\models\Service[] $services
  */
 class ServiceCategory extends BaseServiceCategory
 {
@@ -48,5 +51,21 @@ class ServiceCategory extends BaseServiceCategory
     public function setActive()
     {
         $this->active = self::STATUS_ACTIVE;
+    }
+
+    /**
+     * @return \common\models\ServiceCategory[]
+     */
+    public function getSubcategories()
+    {
+        return ServiceCategory::hasMany(ServiceCategory::className(), ['pid' => 'id']);
+    }
+
+    /**
+     * @return \common\models\Service[]
+     */
+    public function getServices()
+    {
+        return ServiceCategory::hasMany(Service::className(), ['category_id' => 'id']);
     }
 }

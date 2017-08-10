@@ -14,16 +14,7 @@ $this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="giiant-crud service-update">
 
-    <h1>
-        <?= Yii::t('app', 'Service') ?>
-        <small>
-            <?= $model->name ?>
-        </small>
-    </h1>
-
-    <div class="crud-navigation">
-        <?= Html::a('<span class="glyphicon glyphicon-file"></span> ' . 'View', ['view', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
-    </div>
+    <h3> <?= Html::a("<span class='glyphicon glyphicon-arrow-left'></span>",['service/index']) ?> Карточка услуги </h3>
 
     <hr/>
 

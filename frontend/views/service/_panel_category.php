@@ -50,14 +50,14 @@
             <?php if (!empty($model->services)): ?>
                 <?php foreach ($model->services as $service): ?>
                     <div>
-                        <?= $service->name ?> - <?= $service->base_cost ?> р.
+                        <?= \yii\helpers\Html::a("$service->name - $service->base_cost р.", ['service/update', 'id' => $service->id]) ?>
                         <?= \yii\bootstrap\ButtonDropdown::widget([
                             'label' => "",
                             'dropdown' => [
                                 'items' => [
                                     ['label' => 'Печать этикетки'],
                                     [
-                                        'label' => 'Редактировать услугу',
+                                        'label' => 'Редактировать',
                                         'url' => ['service/update', 'id' => $service->id],
                                     ],
                                     ['label' => 'Удалить'],

@@ -5,6 +5,8 @@ use yii\db\Migration;
 class m170810_192856_create_table_defect extends Migration
 {
     private $table_name = "{{%defect}}";
+    private $firm_table = "{{%firm}}";
+    private $fk_name = "{{%fk_defect_firm}}";
 
     public function safeUp()
     {
@@ -17,14 +19,18 @@ class m170810_192856_create_table_defect extends Migration
         $this->createTable($this->table_name, [
             'id' => $this->primaryKey(),
             'pid' => $this->integer()->comment('родительская категория'),
+            'firm_id' => $this->integer()->comment('какой фирме'),
             'name' => $this->string(50)->comment('наименование'),
             'picture' => $this->text()->comment('назв. файла с картинкой'),
             'multi_select' => $this->boolean()->notNull()->defaultValue(0)->comment('мультиселект'),
         ], $tableOptions);
+
+        $this->addForeignKey($this->fk_name, $this->table_name, 'firm_id', $this->firm_table, "id", null, 'CASCADE');
     }
 
     public function safeDown()
     {
+        $this->dropForeignKey($this->fk_name, $this->table_name);
         $this->dropTable($this->table_name);
     }
 

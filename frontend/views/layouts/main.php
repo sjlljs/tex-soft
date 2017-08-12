@@ -45,6 +45,7 @@ AppAsset::register($this);
             ['label' => 'Точки', 'url' => ['/shop/index']],
             ['label' => 'Пользователи', 'url' => ['/user/index']],
             ['label' => 'Услуги', 'url' => ['/service/index']],
+            ['label' => 'Описание/дефектовка', 'url' => ['/defect/index']],
         ],
      ];
 

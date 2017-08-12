@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /**
-* @var yii\web\View $this
-* @var common\models\Defect $model
-*/
-    
+ * @var yii\web\View $this
+ * @var common\models\Defect $model
+ */
+
 $this->title = Yii::t('app', 'Defect') . " " . $model->name . ', ' . 'Edit';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Defect'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Edit';
     <h1>
         <?= Yii::t('app', 'Defect') ?>
         <small>
-                        <?= $model->name ?>
+            <?= $model->name ?>
         </small>
     </h1>
 
@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = 'Edit';
         <?= Html::a('<span class="glyphicon glyphicon-file"></span> ' . 'View', ['view', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
     </div>
 
-    <hr />
+    <hr/>
 
     <?php echo $this->render('_form', [
-    'model' => $model,
+        'model' => $model,
     ]); ?>
 
 </div>

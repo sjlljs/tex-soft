@@ -23,7 +23,7 @@ class m170810_192856_create_table_defect extends Migration
             'name' => $this->string(50)->comment('наименование'),
             'picture' => $this->text()->comment('назв. файла с картинкой'),
             'multi_select' => $this->boolean()->notNull()->defaultValue(0)->comment('мультиселект'),
-            'deleted'=>$this->boolean()->notNull()->defaultValue(0)->comment("удален"),
+            'deleted' => $this->boolean()->notNull()->defaultValue(0)->comment("удален"),
         ], $tableOptions);
 
         $this->addForeignKey($this->fk_name, $this->table_name, 'firm_id', $this->firm_table, "id", null, 'CASCADE');

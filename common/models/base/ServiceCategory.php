@@ -19,9 +19,12 @@ use Yii;
  * @property string $picture
  * @property integer $deleted
  * @property integer $active
+ * @property integer $defect_id
  *
- * @property \common\models\Shop $shop
+ * @property \common\models\Service[] $services
+ * @property \common\models\Defect $defect
  * @property \common\models\Firm $firm
+ * @property \common\models\Shop $shop
  * @property string $aliasModel
  */
 abstract class ServiceCategory extends \yii\db\ActiveRecord
@@ -44,11 +47,12 @@ abstract class ServiceCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'firm_id', 'shop_id', 'num', 'nalog_type', 'deleted', 'active'], 'integer'],
+            [['pid', 'firm_id', 'shop_id', 'num', 'nalog_type', 'deleted', 'active', 'defect_id'], 'integer'],
             [['picture'], 'string'],
             [['name'], 'string', 'max' => 50],
-            [['shop_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Shop::className(), 'targetAttribute' => ['shop_id' => 'id']],
-            [['firm_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Firm::className(), 'targetAttribute' => ['firm_id' => 'id']]
+            [['defect_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Defect::className(), 'targetAttribute' => ['defect_id' => 'id']],
+            [['firm_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Firm::className(), 'targetAttribute' => ['firm_id' => 'id']],
+            [['shop_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\Shop::className(), 'targetAttribute' => ['shop_id' => 'id']]
         ];
     }
 
@@ -68,15 +72,24 @@ abstract class ServiceCategory extends \yii\db\ActiveRecord
             'picture' => 'Картинка',
             'deleted' => 'удалена',
             'active' => 'Активна',
+            'defect_id' => 'описание/дефектовка',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getShop()
+    public function getServices()
     {
-        return $this->hasOne(\common\models\Shop::className(), ['id' => 'shop_id']);
+        return $this->hasMany(\common\models\Service::className(), ['category_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDefect()
+    {
+        return $this->hasOne(\common\models\Defect::className(), ['id' => 'defect_id']);
     }
 
     /**
@@ -85,6 +98,14 @@ abstract class ServiceCategory extends \yii\db\ActiveRecord
     public function getFirm()
     {
         return $this->hasOne(\common\models\Firm::className(), ['id' => 'firm_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getShop()
+    {
+        return $this->hasOne(\common\models\Shop::className(), ['id' => 'shop_id']);
     }
 
 

@@ -18,7 +18,7 @@ class m170810_192856_create_table_defect extends Migration
 
         $this->createTable($this->table_name, [
             'id' => $this->primaryKey(),
-            'pid' => $this->integer()->comment('родительская категория'),
+            'pid' => $this->integer()->defaultValue(0)->comment('родительская категория'),
             'firm_id' => $this->integer()->comment('какой фирме'),
             'name' => $this->string(50)->comment('наименование'),
             'picture' => $this->text()->comment('назв. файла с картинкой'),

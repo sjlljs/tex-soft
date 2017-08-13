@@ -34,11 +34,11 @@ class ServiceController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ServiceSearch;
-        $dataProvider = $searchModel->search($_GET);
+        //$searchModel = new ServiceSearch;
+        //$dataProvider = $searchModel->search($_GET);
 
         $categoryProvider = new ActiveDataProvider([
-            'query' => ServiceCategory::find()->where(['pid' => 0])->with('subcategories', 'services'),
+            'query' => ServiceCategory::find()->where(['pid' => 0,'firm_id'=>\Yii::$app->user->identity->firm_id])->with('subcategories', 'services'),
         ]);
 
         Tabs::clearLocalStorage();
@@ -47,8 +47,8 @@ class ServiceController extends Controller
         \Yii::$app->session['__crudReturnUrl'] = null;
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+        //    'dataProvider' => $dataProvider,
+         //   'searchModel' => $searchModel,
             'categoryProvider' => $categoryProvider,
         ]);
     }

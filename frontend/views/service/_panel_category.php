@@ -49,7 +49,7 @@
 
             <?php if (!empty($model->services)): ?>
                 <?php foreach ($model->services as $service): ?>
-                    <div>
+                    <div class="clearfix">
                         <?= \yii\helpers\Html::a("$service->name - $service->base_cost р.", ['service/update', 'id' => $service->id]) ?>
                         <?= \yii\bootstrap\ButtonDropdown::widget([
                             'label' => "",

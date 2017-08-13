@@ -7,6 +7,10 @@ use \common\models\base\Defect as BaseDefect;
 use yii\helpers\ArrayHelper;
 
 /**
+ * @property \common\models\Defect[] $subgroups
+ */
+
+/**
  * This is the model class for table "defect".
  */
 class Defect extends BaseDefect
@@ -30,5 +34,13 @@ class Defect extends BaseDefect
                 # custom validation rules
             ]
         );
+    }
+
+    /**
+     * @return \common\models\Defect[]
+     */
+    public function getSubgroups()
+    {
+        return Defect::hasMany(Defect::className(), ['pid' => 'id']);
     }
 }

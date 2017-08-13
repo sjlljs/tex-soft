@@ -43,7 +43,7 @@
         <div class="panel-body" id="level<?= $model->id ?>">
             <?php if (!empty($model->subgroups)): ?>
                 <?php foreach ($model->subgroups as $subgroup): ?>
-                    <?= $this->render('_panel_subgroup', ['model' => $subgroup, 'form_id' => $form_id]) ?>
+                    <?= $this->render('_panel_subgroup', ['model' => $subgroup, 'form_id' => $form_id,'parent_id'=>"{$model->id}"]) ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

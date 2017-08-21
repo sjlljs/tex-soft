@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models\query;
+use common\models\Defect;
 
 /**
  * This is the ActiveQuery class for [[\common\models\Defect]].
@@ -32,4 +33,11 @@ class DefectQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function isMainGroup()
+    {
+        $this->andWhere(['pid' => Defect::MAIN_GROUP]);
+        return $this;
+    }
+
 }

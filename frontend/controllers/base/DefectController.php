@@ -91,7 +91,7 @@ class DefectController extends Controller
         }
 
         if (\Yii::$app->request->isAjax)
-            return $this->renderPartial('_form', ['model' => $model]);
+            return $this->renderPartial('_form_modal', ['model' => $model]);
         else
             return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -110,7 +110,7 @@ class DefectController extends Controller
             return $this->redirect(Url::previous());
         } else {
             if (\Yii::$app->request->isAjax)
-                return $this->renderPartial('_form', ['model' => $model]);
+                return $this->renderPartial('_form_modal', ['model' => $model]);
             else
                 return $this->redirect(\Yii::$app->request->referrer);
         }
@@ -132,7 +132,7 @@ class DefectController extends Controller
             return $this->redirect(Url::previous());
         }
 
-// TODO: improve detection
+        // TODO: improve detection
         $isPivot = strstr('$id', ',');
         if ($isPivot == true) {
             return $this->redirect(Url::previous());

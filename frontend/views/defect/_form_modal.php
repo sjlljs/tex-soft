@@ -24,14 +24,14 @@ use yii\helpers\StringHelper;
     );
     ?>
 
-    <div class="">
+    <div class="modal-body">
         <p>
 
             <!-- attribute name -->
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
             <!-- attribute multi_select -->
-            <?= $form->field($model, 'multi_select')->checkbox() ?>
+            <?= $form->field($model, 'multi_select')->checkbox([], false) ?>
 
             <!-- attribute picture -->
             <?= $form->field($model, 'picture')->textarea(['rows' => 6]) ?>
@@ -41,19 +41,28 @@ use yii\helpers\StringHelper;
 
         <?php echo $form->errorSummary($model); ?>
 
-        <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> ' .
-            ($model->isNewRecord ? 'Create' : 'Save'),
-            [
-                'id' => 'save-' . $model->formName(),
-                'class' => 'btn btn-success'
-            ]
-        );
-        ?>
-
-        <?php ActiveForm::end(); ?>
 
     </div>
 
+    <div class="modal-footer">
+        <div class="pull-left">
+            <?= Html::button(
+                'Отмена',
+                ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
+        </div>
+
+        <div class="pull-right">
+            <?= Html::submitButton(
+                ($model->isNewRecord ? 'Создать' : 'Сохранить'),
+                [
+                    'id' => 'save-' . $model->formName(),
+                    'class' => 'btn btn-primary'
+                ]
+            );
+            ?>
+        </div>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 </div>
 

@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
  */
 class Defect extends BaseDefect
 {
+    const MAIN_GROUP=0;
 
     public function behaviors()
     {
@@ -42,5 +43,13 @@ class Defect extends BaseDefect
     public function getSubgroups()
     {
         return Defect::hasMany(Defect::className(), ['pid' => 'id']);
+    }
+
+    /**
+     * @return \common\models\Defect[]
+     */
+    public static function getAllMainGroups()
+    {
+        return Defect::find()->isMainGroup()->all();
     }
 }

@@ -36,7 +36,7 @@ class DefectController extends Controller
         //$searchModel = new DefectSearch;
         //$dataProvider = $searchModel->search($_GET);
         $dataProvider = new ActiveDataProvider([
-            'query' => Defect::find()->where(['pid' => 0, 'firm_id' => \Yii::$app->user->identity->firm_id, 'deleted' => 0]),
+            'query' => Defect::find()->isMainGroup()->isNotDeleted()->currentFirm(),
         ]);
 
         Tabs::clearLocalStorage();

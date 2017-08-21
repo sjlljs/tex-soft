@@ -15,7 +15,10 @@ use yii\helpers\ArrayHelper;
  */
 class Defect extends BaseDefect
 {
-    const MAIN_GROUP=0;
+    const MAIN_GROUP = 0;
+
+    const IS_DELETED = 1;
+    const IS_NOT_DELETED = 0;
 
     public function behaviors()
     {
@@ -48,8 +51,8 @@ class Defect extends BaseDefect
     /**
      * @return \common\models\Defect[]
      */
-    public static function getAllMainGroups()
+    public static function getMainGroups()
     {
-        return Defect::find()->isMainGroup()->all();
+        return Defect::find()->isMainGroup()->currentFirm()->isNotDeleted()->all();
     }
 }

@@ -13,7 +13,7 @@ use yii\helpers\StringHelper;
 
 ?>
 
-<div class="service-form">
+<div class="service-form content">
 
     <?php $form = ActiveForm::begin([
             'id' => 'Service',
@@ -23,6 +23,7 @@ use yii\helpers\StringHelper;
         ]
     );
     ?>
+    <hr>
 
     <div class="clearfix">
         <div class="col-sm-6">
@@ -77,21 +78,21 @@ use yii\helpers\StringHelper;
         </div>
     </div>
 
-        <hr/>
+    <hr/>
 
-        <?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-        <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> ' .
-            ($model->isNewRecord ? 'Create' : 'Save'),
-            [
-                'id' => 'save-' . $model->formName(),
-                'class' => 'btn btn-success'
-            ]
-        );
-        ?>
+    <?= Html::submitButton(
+        '<span class="glyphicon glyphicon-check"></span> ' .
+        ($model->isNewRecord ? 'Create' : 'Save'),
+        [
+            'id' => 'save-' . $model->formName(),
+            'class' => 'btn btn-success'
+        ]
+    );
+    ?>
 
-        <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 
 </div>

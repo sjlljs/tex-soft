@@ -5,7 +5,7 @@
 namespace frontend\controllers\base;
 
 use common\models\ServiceVar;
-    use common\models\ServiceVarSearch;
+use common\models\ServiceVarSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -13,141 +13,166 @@ use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
-* ServiceVarController implements the CRUD actions for ServiceVar model.
-*/
+ * ServiceVarController implements the CRUD actions for ServiceVar model.
+ */
 class ServiceVarController extends Controller
 {
 
 
-/**
-* @var boolean whether to enable CSRF validation for the actions in this controller.
-* CSRF validation is enabled only when both this property and [[Request::enableCsrfValidation]] are true.
-*/
-public $enableCsrfValidation = false;
+    /**
+     * @var boolean whether to enable CSRF validation for the actions in this controller.
+     * CSRF validation is enabled only when both this property and [[Request::enableCsrfValidation]] are true.
+     */
+    public $enableCsrfValidation = false;
 
 
-/**
-* Lists all ServiceVar models.
-* @return mixed
-*/
-public function actionIndex()
-{
-    $searchModel  = new ServiceVarSearch;
-    $dataProvider = $searchModel->search($_GET);
+    /**
+     * Lists all ServiceVar models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new ServiceVarSearch;
+        $dataProvider = $searchModel->search($_GET);
 
-Tabs::clearLocalStorage();
+        Tabs::clearLocalStorage();
 
-Url::remember();
-\Yii::$app->session['__crudReturnUrl'] = null;
+        Url::remember();
+        \Yii::$app->session['__crudReturnUrl'] = null;
 
-return $this->render('index', [
-'dataProvider' => $dataProvider,
-    'searchModel' => $searchModel,
-]);
-}
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
 
-/**
-* Displays a single ServiceVar model.
-* @param integer $id
-*
-* @return mixed
-*/
-public function actionView($id)
-{
-\Yii::$app->session['__crudReturnUrl'] = Url::previous();
-Url::remember();
-Tabs::rememberActiveState();
+    /**
+     * Displays a single ServiceVar model.
+     * @param integer $id
+     *
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        \Yii::$app->session['__crudReturnUrl'] = Url::previous();
+        Url::remember();
+        Tabs::rememberActiveState();
 
-return $this->render('view', [
-'model' => $this->findModel($id),
-]);
-}
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-/**
-* Creates a new ServiceVar model.
-* If creation is successful, the browser will be redirected to the 'view' page.
-* @return mixed
-*/
-public function actionCreate()
-{
-$model = new ServiceVar;
+    /**
+     * Creates a new ServiceVar model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     *
+     * @param integer $service
+     * @param integer $parent
+     * @return mixed
+     */
+    public function actionCreate($service = 0, $parent = 0)
+    {
+        $model = new ServiceVar;
 
-try {
-if ($model->load($_POST) && $model->save()) {
-return $this->redirect(['view', 'id' => $model->id]);
-} elseif (!\Yii::$app->request->isPost) {
-$model->load($_GET);
-}
-} catch (\Exception $e) {
-$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-$model->addError('_exception', $msg);
-}
-return $this->render('create', ['model' => $model]);
-}
+        try {
+            if ($model->load($_POST)) {
+                if (!empty($service) && empty($parent)) {
+                    $model->pid = 0;
+                    $model->service_id = $service;
+                } elseif (!empty($parent)) {
+                    $model->pid = $parent;
+                    $model->service_id = $service;
+                }
 
-/**
-* Updates an existing ServiceVar model.
-* If update is successful, the browser will be redirected to the 'view' page.
-* @param integer $id
-* @return mixed
-*/
-public function actionUpdate($id)
-{
-$model = $this->findModel($id);
+                if ($model->save())
+                    return $this->redirect(\Yii::$app->request->referrer);
+            }
+        } catch (\Exception $e) {
+            $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
+            $model->addError('_exception', $msg);
+        }
 
-if ($model->load($_POST) && $model->save()) {
-return $this->redirect(Url::previous());
-} else {
-return $this->render('update', [
-'model' => $model,
-]);
-}
-}
+        //$out = $this->redirect(\Yii::$app->request->referrer);
+        if (\Yii::$app->request->isAjax)
+            if (!empty($service) && empty($parent))
+                $out = $this->renderPartial('_modal_group', ['model' => $model]);
+            elseif (!empty($parent))
+                $out = $this->renderPartial('_modal_element', ['model' => $model]);
+            else
+                $out = $this->redirect(\Yii::$app->request->referrer);
+        else
+            $out = $this->redirect(\Yii::$app->request->referrer);
+        return $out;
+    }
 
-/**
-* Deletes an existing ServiceVar model.
-* If deletion is successful, the browser will be redirected to the 'index' page.
-* @param integer $id
-* @return mixed
-*/
-public function actionDelete($id)
-{
-try {
-$this->findModel($id)->delete();
-} catch (\Exception $e) {
-$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-\Yii::$app->getSession()->addFlash('error', $msg);
-return $this->redirect(Url::previous());
-}
+    /**
+     * Updates an existing ServiceVar model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-// TODO: improve detection
-$isPivot = strstr('$id',',');
-if ($isPivot == true) {
-return $this->redirect(Url::previous());
-} elseif (isset(\Yii::$app->session['__crudReturnUrl']) && \Yii::$app->session['__crudReturnUrl'] != '/') {
-Url::remember(null);
-$url = \Yii::$app->session['__crudReturnUrl'];
-\Yii::$app->session['__crudReturnUrl'] = null;
+        if ($model->load($_POST) && $model->save()) {
+            return $this->redirect(\Yii::$app->request->referrer);
+        } else {
+            if (\Yii::$app->request->isAjax)
+                if (empty($model->pid))
+                    return $this->renderPartial('_modal_group', ['model' => $model]);
+                else
+                    return $this->renderPartial('_modal_element', ['model' => $model]);
+            else
+                return $this->redirect(\Yii::$app->request->referrer);
+        }
+    }
 
-return $this->redirect($url);
-} else {
-return $this->redirect(['index']);
-}
-}
+    /**
+     * Deletes an existing ServiceVar model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        try {
+            $this->findModel($id)->delete();
+        } catch (\Exception $e) {
+            $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
+            \Yii::$app->getSession()->addFlash('error', $msg);
+            return $this->redirect(Url::previous());
+        }
 
-/**
-* Finds the ServiceVar model based on its primary key value.
-* If the model is not found, a 404 HTTP exception will be thrown.
-* @param integer $id
-* @return ServiceVar the loaded model
-* @throws HttpException if the model cannot be found
-*/
-protected function findModel($id)
-{
-if (($model = ServiceVar::findOne($id)) !== null) {
-return $model;
-} else {
-throw new HttpException(404, 'The requested page does not exist.');
-}
-}
+        // TODO: improve detection
+        $isPivot = strstr('$id', ',');
+        if ($isPivot == true) {
+            return $this->redirect(Url::previous());
+        } elseif (isset(\Yii::$app->session['__crudReturnUrl']) && \Yii::$app->session['__crudReturnUrl'] != '/') {
+            Url::remember(null);
+            $url = \Yii::$app->session['__crudReturnUrl'];
+            \Yii::$app->session['__crudReturnUrl'] = null;
+
+            return $this->redirect($url);
+        } else {
+            return $this->redirect(['index']);
+        }
+    }
+
+    /**
+     * Finds the ServiceVar model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return ServiceVar the loaded model
+     * @throws HttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = ServiceVar::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new HttpException(404, 'The requested page does not exist.');
+        }
+    }
 }
